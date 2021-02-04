@@ -347,6 +347,14 @@
     utility-types "^3.10.0"
     zustand "^3.0.3"
 
+"@react-three/postprocessing@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-1.5.1.tgz#4612381fdcc996c0c58668f141b73d9599a6c9b0"
+  integrity sha512-zrfDIES0osRkRGw3PuwW4e1G7Zi9qxuEckX/vwuUutFB1oDacRA2P41AwoazR5Qi6qPPlX1dKn33+eLh3JBkHQ==
+  dependencies:
+    postprocessing "^6.17.1"
+    react-merge-refs "^1.1.0"
+
 "@types/d3-ease@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/d3-ease/-/d3-ease-2.0.0.tgz#798cbd9908d26cfe9f1a295a3a75164da9a3666e"
@@ -2695,6 +2703,11 @@ postcss@^7.0.26, postcss@^7.0.32:
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+postprocessing@^6.17.1:
+  version "6.20.3"
+  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.20.3.tgz#17cc47bf3a4a4fd0c3e918a2e71292a0958f3349"
+  integrity sha512-Fm68mijfc/DBm0kGiXg3ws8zLgfwdH2XmiS4b/j2JXOsK7Flaq4VylycGgJcf2y6Q/y+zM+ZgtNvJAAcjmgYzA==
 
 prebuild-install@^6.0.0:
   version "6.0.0"
