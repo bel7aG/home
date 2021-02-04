@@ -30,7 +30,7 @@ const Game: FC = () => {
   })
 
   const { scale: houseScale } = useSpring({
-    scale: active ? [0.4, 0.4, 0.4] : ready ? [1, 1, 1] : [0, 0, 0],
+    scale: active ? [0.8, 0.8, 0.8] : ready ? [1.3, 1.3, 1.3] : [0, 0, 0],
 
     config: { duration: 1700, easing: easings.easeCubic }
   })
@@ -41,11 +41,11 @@ const Game: FC = () => {
     <animated.group ref={groupRef} scale={houseScale as any} onPointerDown={handleHouse}>
       <group>
         <Suspense fallback={null}>
+          <Particles color="#fff" count={isMobile ? 2000 : 8500} />
           <group position={[0, 10, 0]}>
             <Text color="#ff556b" hAlign="center" position={[0, 1, 0]} children="HOME" />
             <Text color="#ff556b" hAlign="right" position={[0, -1, 0]} children="HT" />
           </group>
-          <Particles color="#000" count={isMobile ? 2000 : 8500} />
           <House isActive={active} />
         </Suspense>
       </group>
