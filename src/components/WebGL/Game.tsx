@@ -1,13 +1,18 @@
-import { useState, useEffect, useRef, Suspense, FC, RefObject } from 'react'
+import { useState, useEffect, useRef, useMemo, Suspense, FC, RefObject } from 'react'
 import dynamic from 'next/dynamic'
 import { useFrame } from 'react-three-fiber'
 import { animated, useSpring } from '@react-spring/three'
 import * as easings from 'd3-ease'
 
+import { useMobileDetect } from 'hooks'
+import Particles from './Particles'
+
 const House = dynamic(() => import('./House'), { ssr: false })
 
 const Game: FC = () => {
   const groupRef = useRef<any>() as RefObject<any>
+
+  const isMobile = useMemo(() => useMobileDetect().isMobile(), [])
 
   const [active, setActive] = useState(false)
   const [ready, setReady] = useState(false)
@@ -36,6 +41,7 @@ const Game: FC = () => {
     <animated.group ref={groupRef} scale={houseScale as any} onPointerUp={handleHouse}>
       <group>
         <Suspense fallback={null}>
+          <Particles color="#000" count={isMobile ? 2000 : 8500} />
           <House isActive={active} />
         </Suspense>
       </group>
