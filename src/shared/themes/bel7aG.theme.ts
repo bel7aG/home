@@ -7,12 +7,6 @@ import baseStyled, {
 
 declare module 'styled-components' {
   export interface Bel7aGTheme {
-    border: {
-      wsc: string // width style color
-      color: string
-      radius: string
-    }
-
     colors: (
       opacity?: number
     ) => {
@@ -22,9 +16,7 @@ declare module 'styled-components' {
 
     layout: {
       colors: {
-        cover: string
         body: string
-        header: string
         text: string
         textOpposite: string
       }

@@ -1,12 +1,26 @@
 import { styled } from 'shared'
 
 export const SLayout = styled.div`
-  position: relative;
+  position: sticky;
 
   min-width: 28rem;
 
-  > main {
-    min-height: 100vh;
-    padding: 4rem 1rem;
+  &,
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+  }
+  > div:first-child {
+    > canvas {
+      opacity: 0;
+    }
+  }
+
+  > div:last-child {
+    pointer-events: none;
   }
 `

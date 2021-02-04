@@ -1,28 +1,20 @@
-import { useEffect, useRef, memo, FC, ReactNode, RefObject } from 'react'
+import { FC, ReactNode } from 'react'
 import { Bel7aGTheme } from 'styled-components'
 
-import { useTheme } from 'context'
+import { Canvas } from 'components'
 import { SLayout } from './SLayout'
 
 export interface LayoutProps {
   children: ReactNode
-  triggerTheme: (theme: Bel7aGTheme) => void
+  triggerTheme?: (theme: Bel7aGTheme) => void
 }
 
-const Layout: FC<LayoutProps> = ({ children, triggerTheme }) => {
-  const layoutRef = useRef<HTMLDivElement | any>() as RefObject<HTMLDivElement>
-
-  const { theme } = useTheme()
-
-  useEffect(() => {
-    triggerTheme(theme)
-  }, [theme])
-
+const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <SLayout ref={layoutRef}>
-      <main>{children}</main>
+    <SLayout>
+      <Canvas>{children}</Canvas>
     </SLayout>
   )
 }
 
-export default memo(Layout)
+export default Layout
