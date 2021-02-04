@@ -14,12 +14,4 @@ export const SLayout = styled.div`
     height: 100vh;
     overflow: auto;
   }
-  > div:first-child {
-    > canvas {
-    }
-  }
-
-  > div:last-child {
-    pointer-events: none;
-  }
 `

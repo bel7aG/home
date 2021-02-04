@@ -5,7 +5,7 @@ import { animated, useSpring } from '@react-spring/three'
 import * as easings from 'd3-ease'
 
 import { useMobileDetect } from 'hooks'
-import Particles from './Particles'
+import { Particles, Text } from 'components'
 
 const House = dynamic(() => import('./House'), { ssr: false })
 
@@ -38,9 +38,13 @@ const Game: FC = () => {
   const handleHouse = () => setActive(!active)
 
   return (
-    <animated.group ref={groupRef} scale={houseScale as any} onPointerUp={handleHouse}>
+    <animated.group ref={groupRef} scale={houseScale as any} onPointerDown={handleHouse}>
       <group>
         <Suspense fallback={null}>
+          <group position={[0, 10, 0]}>
+            <Text color="#ff556b" hAlign="center" position={[0, 1, 0]} children="HOME" />
+            <Text color="#ff556b" hAlign="right" position={[0, -1, 0]} children="HT" />
+          </group>
           <Particles color="#000" count={isMobile ? 2000 : 8500} />
           <House isActive={active} />
         </Suspense>

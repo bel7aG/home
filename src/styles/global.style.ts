@@ -10,9 +10,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: Bel7aGTheme }>`
     box-sizing: border-box;
   }
 
-  * {
-    transition: all 0.2s ${({ theme }) => theme?.transition};
-  }
 
   *::-webkit-scrollbar {
     width: 0px;
