@@ -1,9 +1,18 @@
-const withPlugins = require('next-compose-plugins')
+const withTM = require('next-transpile-modules')([
+  '@react-three/drei',
+  'three',
+  '@react-spring/three',
+  'react-three-fiber'
+])
 
-module.exports = withPlugins([], {
-  webpack(config) {
+module.exports = withTM({
+  webpack: (config) => {
     config.resolve.modules.push(`${__dirname}/src`)
 
-    return config
+    config.module.rules.push(
+      { test: /react-spring/, sideEffects: true } // prevent vercel to crash when deploy
+    )
+
+    return { ...config }
   }
 })
