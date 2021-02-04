@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
 import { Bel7aGTheme } from 'styled-components'
 
-import { Canvas } from 'components'
+import { Canvas, Game } from 'components'
 import { SLayout } from './SLayout'
 
 export interface LayoutProps {
@@ -12,7 +12,10 @@ export interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <SLayout>
-      <Canvas>{children}</Canvas>
+      <Canvas>
+        <Game />
+        {children}
+      </Canvas>
     </SLayout>
   )
 }

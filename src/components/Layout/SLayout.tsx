@@ -16,7 +16,6 @@ export const SLayout = styled.div`
   }
   > div:first-child {
     > canvas {
-      opacity: 0;
     }
   }
 
