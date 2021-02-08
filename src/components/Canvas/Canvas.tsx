@@ -10,7 +10,7 @@ export interface CanvasProps {
 
 const Canvas: FC<CanvasProps> = ({ children }) => {
   return (
-    <ThreeFiberCanvas colorManagement camera={{ position: [0, 20, 27.5] }}>
+    <ThreeFiberCanvas colorManagement camera={{ position: [0, 18, 23] }}>
       <CameraControls />
       <EffectComposer>
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
