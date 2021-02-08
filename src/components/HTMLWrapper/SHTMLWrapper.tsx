@@ -7,8 +7,4 @@ export const SHTMLWrapper = styled(Html)<{ size: any }>`
   left: ${({ size }) => -size.width / 2}px;
   width: ${({ size }) => size.width}px;
   height: ${({ size }) => size.height}px;
-
-  > * {
-    pointer-events: all;
-  }
 `
