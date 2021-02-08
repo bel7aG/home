@@ -2,9 +2,8 @@ import { useState, useMemo } from 'react'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 'next'
 
 import { Head } from 'shared'
-import { RegisterStepper } from 'containers'
+import { RegisterStepper, RegisterForm } from 'containers'
 import { useRouter } from 'context'
-import { Block, HTMLWrapper } from 'components'
 import { REGISTER_FORM_ROUTES } from 'constant'
 import { IBlockState } from 'interfaces'
 
@@ -47,14 +46,7 @@ const Register: NextPage<RegisterProps> = (props) => {
       <Head pageTitle="REGISTER" />
 
       <RegisterStepper slug={slug} handleNext={handleNext} handlePrevious={handlePrevious} forward={forward} />
-
-      <Block blockState={blockState} factor={0} offset={0}>
-        <HTMLWrapper portal={portal}>
-          <div>
-            <h1>this is content</h1>
-          </div>
-        </HTMLWrapper>
-      </Block>
+      <RegisterForm blockState={blockState} portal={portal} />
     </>
   )
 }
