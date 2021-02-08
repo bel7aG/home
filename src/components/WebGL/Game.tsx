@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, useMemo, Suspense, FC, RefObject } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback, Suspense, FC, RefObject } from 'react'
 import dynamic from 'next/dynamic'
 import { useFrame, useThree } from 'react-three-fiber'
 import { animated, useSpring } from '@react-spring/three'
 import * as easings from 'd3-ease'
 
+import { useRouter } from 'context'
 import { useMobileDetect } from 'hooks'
 import { Particles, Text } from 'components'
 
@@ -11,6 +12,9 @@ const House = dynamic(() => import('./House'), { ssr: false })
 
 const Game: FC = () => {
   const groupRef = useRef<any>() as RefObject<any>
+
+  const router = useRouter()
+  const { pathname } = router
 
   const { viewport } = useThree()
   const isMobile = useMemo(() => useMobileDetect().isMobile(), [])
@@ -31,8 +35,7 @@ const Game: FC = () => {
   })
 
   const { scale: houseScale } = useSpring({
-    scale: active ? [0.6, 0.6, 0.6] : ready ? [1, 1, 1] : [0, 0, 0],
-
+    scale: pathname !== '/' ? [0, 0, 0] : active ? [0.4, 0.4, 0.4] : ready ? [1, 1, 1] : [0, 0, 0],
     config: { duration: 1700, easing: easings.easeCubic }
   })
 
@@ -40,9 +43,13 @@ const Game: FC = () => {
 
   const { scale: registerScale, pos: registerPosition } = useSpring({
     scale: active ? [1, 1, 1] : [0, 0, 0],
-    pos: active === false ? [0, viewport.height * 1.5, 0] : [0, viewport.height / 3.2, 0],
+    pos: active === false || pathname !== '/' ? [0, viewport.height * 1.5, 0] : [0, viewport.height / 3.2, 0],
     config: { duration: 1800, easing: easings.easeCubic }
   })
+
+  const handleRegister = useCallback(() => {
+    router.push('/register/fullname')
+  }, [])
 
   return (
     <group>
@@ -59,7 +66,7 @@ const Game: FC = () => {
         </group>
       </animated.group>
 
-      <animated.group position={registerPosition as any} scale={registerScale as any}>
+      <animated.group position={registerPosition as any} scale={registerScale as any} onPointerDown={handleRegister}>
         <Suspense fallback={null}>
           <Text children="REGISTER" />
         </Suspense>
