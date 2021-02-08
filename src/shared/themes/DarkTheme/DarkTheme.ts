@@ -1,12 +1,6 @@
 import { Bel7aGTheme } from 'styled-components'
 
 export const DarkTheme: Bel7aGTheme = {
-  border: {
-    wsc: `1px solid #000`,
-    color: '#000',
-    radius: '4px'
-  },
-
   colors: (opacity: number = 1) => ({
     primary: `rgba(3, 155, 229, ${opacity})`,
     secondary: `rgba(84, 89, 95, ${opacity})`
@@ -14,11 +8,10 @@ export const DarkTheme: Bel7aGTheme = {
 
   layout: {
     colors: {
-      cover: '#181818',
-      body: '#181818',
-      header: '#1F1F1F',
-      text: '#fff',
-      textOpposite: '#1F1F1F'
+      body:
+        'radial-gradient(circle, #0b362b, #09372b, #07372b, #06382b, #04382b, #033629, #023528, #013326, #012e23, #012a20, #01251c, #002119)',
+      text: '#ffffff',
+      textOpposite: '#262626'
     }
   },
 
