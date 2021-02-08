@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import { useState, useCallback, FC } from 'react'
 import { Object3DNode, useFrame } from 'react-three-fiber'
 import { Mesh } from 'three'
 
@@ -14,15 +14,14 @@ const Box: FC<BoxProps> = ({ ...props }) => {
   const boxRef = useWobble(0.5, 'cos')
 
   useFrame(() => {
-    if (boxRef.current) boxRef.current.rotation.x = boxRef.current.rotation.y = boxRef.current.rotation.z += 0.01
+    if (boxRef.current)
+      boxRef.current.rotation.x = boxRef.current.rotation.y = boxRef.current.rotation.z += hoverd ? 0.02 : 0.01
   })
 
-  const handleBoxColor = () => {
-    setHoverd(!hoverd)
-  }
+  const handleBoxColor = useCallback(() => setHoverd(!hoverd), [hoverd])
 
   return (
-    <mesh onPointerOut={handleBoxColor} ref={boxRef} {...rest}>
+    <mesh onPointerOut={handleBoxColor} onPointerOver={handleBoxColor} ref={boxRef} {...rest}>
       <boxBufferGeometry attach="geometry" />
       <meshStandardMaterial attach="material" color={color} opacity={hoverd ? 1 : 0.7} />
     </mesh>
