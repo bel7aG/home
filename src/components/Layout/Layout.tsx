@@ -1,6 +1,8 @@
 import { FC, ReactNode } from 'react'
 import { Bel7aGTheme } from 'styled-components'
+import { useRouter } from 'next/router'
 
+import { RouterContextProvider } from 'context'
 import { Canvas, Game } from 'components'
 import { SLayout } from './SLayout'
 
@@ -10,11 +12,15 @@ export interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const router = useRouter()
+
   return (
     <SLayout>
       <Canvas>
-        <Game />
-        {children}
+        <RouterContextProvider router={router as any}>
+          <Game />
+          {children}
+        </RouterContextProvider>
       </Canvas>
     </SLayout>
   )
