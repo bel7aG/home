@@ -61,7 +61,6 @@ export const GlobalStyle = createGlobalStyle<{ theme: Bel7aGTheme }>`
     -moz-osx-font-smoothing: grayscale;
     word-wrap: break-word;
     font-kerning: normal;
-
   }
 
   button {

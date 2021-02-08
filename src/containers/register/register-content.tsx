@@ -9,16 +9,13 @@ interface RegisterFormProps {
   blockState: IBlockState
 }
 
-const RegisterForm: FC<RegisterFormProps> = (props) => {
+const RegisterForm: FC<RegisterFormProps> = ({ children, ...props }) => {
   const { portal, blockState } = props
+
   return (
     <Block blockState={blockState} factor={0} offset={0}>
       <HTMLWrapper portal={portal}>
-        <SRegisterForm>
-          <div>
-            <h1>the form will be here</h1>
-          </div>
-        </SRegisterForm>
+        <SRegisterForm>{children}</SRegisterForm>
       </HTMLWrapper>
     </Block>
   )

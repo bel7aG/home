@@ -5,4 +5,9 @@ export const SRegisterForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  input,
+  button {
+    pointer-events: all;
+  }
 `
