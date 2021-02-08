@@ -25,7 +25,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     () => ({
       font,
       size: width < 21 ? size / 1.4 : size,
-      height: width < 21 ? size / 3 : size / 2,
+      height: size <= 20 ? 2 : width < 21 ? size / 3 : size / 2,
       curveSegments: 32,
       bevelEnabled: true,
       bevelThickness: 6,

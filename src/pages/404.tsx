@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter } from 'context'
 
 const NotFound: NextPage = () => {
   const { push } = useRouter()
