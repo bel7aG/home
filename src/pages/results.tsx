@@ -28,7 +28,7 @@ const Register: NextPage<RegisterProps> = (props) => {
   const { fullname, email, phone, salary } = values as IRegister
 
   useEffect(() => {
-    // if (!fullname || !email || !phone || !salary) router.push('/')
+    if (!fullname || !email || !phone || !salary) router.push('/')
   }, [])
 
   const handleBackHome = () => {
