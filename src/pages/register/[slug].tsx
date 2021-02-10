@@ -58,7 +58,6 @@ const Register: NextPage<RegisterProps> = ({ ...props }) => {
 
   useEffect(() => {
     const item = localStorage.getItem('registerForm') as any
-    console.log(item)
     if (item) {
       const form = JSON.parse(item)
       if (form === null) router.push(`/register/fullname`)
@@ -68,6 +67,8 @@ const Register: NextPage<RegisterProps> = ({ ...props }) => {
         form[chosenRoute.previous.slug] === undefined
       )
         router.push(`/register/${chosenRoute.previous?.slug}`)
+    } else {
+      router.push(REGISTER_FORM_ROUTES[0].pathname)
     }
   }, [slug])
 
