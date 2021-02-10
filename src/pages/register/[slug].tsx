@@ -85,7 +85,7 @@ const Register: NextPage<RegisterProps> = ({ ...props }) => {
           decorators={persistDecorator ? [persistDecorator] : []}
           validation={registerValidation}
           handleForm={handleForm}>
-          {chosenRoute && slug !== 'salary' && <Field name={slug} component="input" />}
+          {chosenRoute && slug !== 'salary' && <Field name={slug} component="input" placeholder={`${slug}...`} />}
           {chosenRoute && slug === 'salary' && (
             <>
               <div>
