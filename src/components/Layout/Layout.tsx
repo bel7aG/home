@@ -26,6 +26,12 @@ const Layout: FC<LayoutProps> = ({ triggerTheme, children }) => {
 
   useEffect(() => void onScroll({ target: scrollRef.current }), [pathname])
 
+  useEffect(() => {
+    scrollRef.current.scrollTo({
+      top: 0
+    })
+  }, [pathname])
+
   const [events, setEvents] = useState<DomEventHandlers>()
   const onScroll = (e: any) => (blockState.top.current = e.target.scrollTop)
 
