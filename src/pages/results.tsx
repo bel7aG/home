@@ -53,7 +53,7 @@ const Register: NextPage<RegisterProps> = (props) => {
             <h1>{fullname}</h1>
             <h1>{email}</h1>
             <h1>{phone}</h1>
-            <h1>{salary}</h1>
+            <h1>salary: {salary}</h1>
           </SResults>
         </HTMLWrapper>
       </Block>
