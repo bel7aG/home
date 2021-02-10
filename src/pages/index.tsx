@@ -1,13 +1,7 @@
 import { NextPage } from 'next'
 
-import { Head } from 'shared'
-
 const Home: NextPage = () => {
-  return (
-    <>
-      <Head pageTitle="DASHBOARD" />
-    </>
-  )
+  return null
 }
 
 export default Home

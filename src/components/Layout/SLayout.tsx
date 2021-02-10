@@ -1,10 +1,14 @@
 import { styled } from 'shared'
 
 export const SLayout = styled.div<{ pathname: string }>`
-  position: sticky;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* min-width: 28rem; */
 
-  min-width: 28rem;
+  > div:first-child {
+    overflow: hidden;
+  }
 
   > div:last-child {
     position: absolute;
@@ -13,6 +17,9 @@ export const SLayout = styled.div<{ pathname: string }>`
     width: 100vw;
     height: 100vh;
     overflow: auto;
-    pointer-events: none;
+  }
+
+  > div:last-child {
+    pointer-events: ${({ pathname }) => (pathname === '/results' ? 'auto' : 'none')};
   }
 `

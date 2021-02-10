@@ -14,20 +14,22 @@ interface BlockProps {
 }
 
 const Block: FC<BlockProps> = ({ children, offset, factor, blockState, ...props }) => {
-  const ref = useRef<any>() as RefObject<any>
+  const blockRef = useRef<any>() as RefObject<any>
   const { offset: parentOffset, sectionHeight, aspect } = useBlock(blockState)
   offset = offset !== undefined ? offset : parentOffset
 
   useFrame(() => {
-    const curY = ref.current.position.y
-    const curTop = blockState.top.current / aspect
-    ref.current.position.y = lerp(curY, (curTop / blockState.zoom) * factor, 0.051)
+    if (blockRef.current) {
+      const curY = blockRef.current.position.y
+      const curTop = blockState.top.current / aspect
+      blockRef.current.position.y = lerp(curY, (curTop / blockState.zoom) * factor, 0.06)
+    }
   })
 
   return (
     <offsetContext.Provider value={offset}>
       <group {...props} position={[0, -sectionHeight * offset * factor, 0]}>
-        <group ref={ref}>{children}</group>
+        <group ref={blockRef}>{children}</group>
       </group>
     </offsetContext.Provider>
   )

@@ -1,25 +1,27 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 'next'
 import { Field } from 'react-final-form'
 import { createPersistDecorator } from 'final-form-persist'
 
-import { Head } from 'shared'
-import { useRouter } from 'context'
+import { blockState } from 'shared'
+import { useRouter, useRegister } from 'context'
 import { RegisterStepper, RegisterContent } from 'containers'
 import { Form } from 'components'
 import { registerValidation } from 'validations'
 import { REGISTER_FORM_ROUTES } from 'constant'
-import { IBlockState } from 'interfaces'
+import { IRegister } from 'interfaces'
 
 interface RegisterProps {
   slug: string
   portal: any
-  blockState: IBlockState
 }
 
-const Register: NextPage<RegisterProps> = (props) => {
-  const { portal, blockState, slug } = props
+const Register: NextPage<RegisterProps> = ({ ...props }) => {
+  const { portal, slug } = props
+
   const router = useRouter()
+
+  const { handleRegister } = useRegister()
 
   const [forward, setForward] = useState(false)
 
@@ -28,7 +30,8 @@ const Register: NextPage<RegisterProps> = (props) => {
   const { persistDecorator, clear } = createPersistDecorator({
     name: 'registerForm',
     debounceTime: 500,
-    whitelist: REGISTER_FORM_ROUTES.map(({ slug }) => slug)
+    whitelist: REGISTER_FORM_ROUTES.map(({ slug }) => slug),
+    storage: localStorage
   })
 
   const handleNext = () => {
@@ -51,19 +54,37 @@ const Register: NextPage<RegisterProps> = (props) => {
     }
   }
 
-  const handleForm = () => {
-    clear()
-  }
-
   const chosenRoute = useMemo(() => REGISTER_FORM_ROUTES.find((route) => route.slug === slug), [slug])
+
+  useEffect(() => {
+    const item = localStorage.getItem('registerForm') as any
+    console.log(item)
+    if (item) {
+      const form = JSON.parse(item)
+      if (form === null) router.push(`/register/fullname`)
+      else if (
+        slug === chosenRoute?.slug &&
+        chosenRoute.previous !== null &&
+        form[chosenRoute.previous.slug] === undefined
+      )
+        router.push(`/register/${chosenRoute.previous?.slug}`)
+    }
+  }, [slug])
+
+  const handleForm = (input: IRegister) => {
+    handleRegister(input)
+    clear()
+    router.push('/results')
+  }
 
   return (
     <>
-      <Head pageTitle="REGISTER" />
-
       <RegisterStepper slug={slug} handleNext={handleNext} handlePrevious={handlePrevious} forward={forward} />
       <RegisterContent blockState={blockState} portal={portal}>
-        <Form decorators={[persistDecorator]} validation={registerValidation} handleForm={handleForm}>
+        <Form
+          decorators={persistDecorator ? [persistDecorator] : []}
+          validation={registerValidation}
+          handleForm={handleForm}>
           {chosenRoute && <Field name={slug} component="input" />}
           {chosenRoute?.next === null && <button type="submit">Register</button>}
         </Form>

@@ -56,11 +56,20 @@ export const GlobalStyle = createGlobalStyle<{ theme: Bel7aGTheme }>`
     font-size: 1.6rem;
     overflow-x: hidden;
     overflow-y: scroll;    
+    transition: all 1s ease;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     word-wrap: break-word;
     font-kerning: normal;
+  }
+
+  html,
+  body,
+  body > div, body > div > div {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   button {

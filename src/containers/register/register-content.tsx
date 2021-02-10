@@ -13,7 +13,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ children, ...props }) => {
   const { portal, blockState } = props
 
   return (
-    <Block blockState={blockState} factor={0} offset={0}>
+    <Block blockState={blockState} factor={1.5} offset={0}>
       <HTMLWrapper portal={portal}>
         <SRegisterForm>{children}</SRegisterForm>
       </HTMLWrapper>
