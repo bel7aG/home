@@ -19,7 +19,7 @@ export const SResults = styled.div`
 `
 
 export const BackHome = styled.button`
-  color: #ebebeb;
+  color: #ff556b;
   text-transform: uppercase;
   font-size: 2rem;
   font-weight: 900;

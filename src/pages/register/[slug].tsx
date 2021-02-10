@@ -85,7 +85,31 @@ const Register: NextPage<RegisterProps> = ({ ...props }) => {
           decorators={persistDecorator ? [persistDecorator] : []}
           validation={registerValidation}
           handleForm={handleForm}>
-          {chosenRoute && <Field name={slug} component="input" />}
+          {chosenRoute && slug !== 'salary' && <Field name={slug} component="input" />}
+          {chosenRoute && slug === 'salary' && (
+            <>
+              <div>
+                <p>0 - 1000</p>
+                <Field name={slug} type="radio" value="0 - 1000" component="input" />
+              </div>
+              <div>
+                <p>1000 - 2000</p>
+                <Field name={slug} type="radio" value="1000 - 2000" component="input" />
+              </div>
+              <div>
+                <p>2000 - 3000</p>
+                <Field name={slug} type="radio" value="2000 - 3000" component="input" />
+              </div>
+              <div>
+                <p>3000 - 4000</p>
+                <Field name={slug} type="radio" value="3000 - 4000" component="input" />
+              </div>
+              <div>
+                <p>Mehr als 4.000</p>
+                <Field name={slug} type="radio" value="Mehr als 4.000" component="input" />
+              </div>
+            </>
+          )}
           {chosenRoute?.next === null && <button type="submit">Register</button>}
         </Form>
       </RegisterContent>
