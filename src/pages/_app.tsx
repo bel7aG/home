@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react'
 import { AppProps } from 'next/app'
 import { ThemeProvider as StyledThemeProvider, Bel7aGTheme } from 'styled-components'
 
+import { Head } from 'shared'
 import Layout from 'components'
 import { GlobalStyle } from 'styles'
 import AppProviders from 'context'
@@ -28,14 +29,18 @@ const Application: FC<AppProps> = ({ Component, pageProps }) => {
   }
 
   return (
-    <StyledThemeProvider theme={theme}>
-      <GlobalStyle />
-      <AppProviders>
-        <Layout triggerTheme={triggerTheme}>
-          <Component {...pageProps} />
-        </Layout>
-      </AppProviders>
-    </StyledThemeProvider>
+    <>
+      <Head pageTitle="HOME" />
+
+      <StyledThemeProvider theme={theme}>
+        <GlobalStyle />
+        <AppProviders>
+          <Layout triggerTheme={triggerTheme}>
+            <Component {...pageProps} />
+          </Layout>
+        </AppProviders>
+      </StyledThemeProvider>
+    </>
   )
 }
 

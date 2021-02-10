@@ -1,25 +1,38 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from 'next'
+import { Field } from 'react-final-form'
+import { createPersistDecorator } from 'final-form-persist'
 
-import { Head } from 'shared'
-import { RegisterStepper, RegisterForm } from 'containers'
-import { useRouter } from 'context'
+import { blockState } from 'shared'
+import { useRouter, useRegister } from 'context'
+import { RegisterStepper, RegisterContent } from 'containers'
+import { Form } from 'components'
+import { registerValidation } from 'validations'
 import { REGISTER_FORM_ROUTES } from 'constant'
-import { IBlockState } from 'interfaces'
+import { IRegister } from 'interfaces'
 
 interface RegisterProps {
   slug: string
   portal: any
-  blockState: IBlockState
 }
 
-const Register: NextPage<RegisterProps> = (props) => {
-  const { portal, blockState, slug } = props
+const Register: NextPage<RegisterProps> = ({ ...props }) => {
+  const { portal, slug } = props
+
   const router = useRouter()
+
+  const { handleRegister } = useRegister()
 
   const [forward, setForward] = useState(false)
 
   const currentRoute = useMemo(() => REGISTER_FORM_ROUTES.find((route) => route.slug === slug), [slug])
+
+  const { persistDecorator, clear } = createPersistDecorator({
+    name: 'registerForm',
+    debounceTime: 500,
+    whitelist: REGISTER_FORM_ROUTES.map(({ slug }) => slug),
+    storage: localStorage
+  })
 
   const handleNext = () => {
     if (currentRoute?.next && forward === false) {
@@ -41,12 +54,65 @@ const Register: NextPage<RegisterProps> = (props) => {
     }
   }
 
+  const chosenRoute = useMemo(() => REGISTER_FORM_ROUTES.find((route) => route.slug === slug), [slug])
+
+  useEffect(() => {
+    const item = localStorage.getItem('registerForm') as any
+    console.log(item)
+    if (item) {
+      const form = JSON.parse(item)
+      if (form === null) router.push(`/register/fullname`)
+      else if (
+        slug === chosenRoute?.slug &&
+        chosenRoute.previous !== null &&
+        form[chosenRoute.previous.slug] === undefined
+      )
+        router.push(`/register/${chosenRoute.previous?.slug}`)
+    }
+  }, [slug])
+
+  const handleForm = (input: IRegister) => {
+    handleRegister(input)
+    clear()
+    router.push('/results')
+  }
+
   return (
     <>
-      <Head pageTitle="REGISTER" />
-
       <RegisterStepper slug={slug} handleNext={handleNext} handlePrevious={handlePrevious} forward={forward} />
-      <RegisterForm blockState={blockState} portal={portal} />
+      <RegisterContent blockState={blockState} portal={portal}>
+        <Form
+          decorators={persistDecorator ? [persistDecorator] : []}
+          validation={registerValidation}
+          handleForm={handleForm}>
+          {chosenRoute && slug !== 'salary' && <Field name={slug} component="input" />}
+          {chosenRoute && slug === 'salary' && (
+            <>
+              <div>
+                <p>0 - 1000</p>
+                <Field name={slug} type="radio" value="0 - 1000" component="input" />
+              </div>
+              <div>
+                <p>1000 - 2000</p>
+                <Field name={slug} type="radio" value="1000 - 2000" component="input" />
+              </div>
+              <div>
+                <p>2000 - 3000</p>
+                <Field name={slug} type="radio" value="2000 - 3000" component="input" />
+              </div>
+              <div>
+                <p>3000 - 4000</p>
+                <Field name={slug} type="radio" value="3000 - 4000" component="input" />
+              </div>
+              <div>
+                <p>Mehr als 4.000</p>
+                <Field name={slug} type="radio" value="Mehr als 4.000" component="input" />
+              </div>
+            </>
+          )}
+          {chosenRoute?.next === null && <button type="submit">Register</button>}
+        </Form>
+      </RegisterContent>
     </>
   )
 }

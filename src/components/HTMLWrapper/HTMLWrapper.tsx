@@ -15,7 +15,7 @@ const HTMLWrapper: FC<HTMLWrapperProps> = ({ children, ...props }) => {
 
   return (
     <SHTMLWrapper size={size} portal={portal}>
-      {children}
+      <div>{children}</div>
     </SHTMLWrapper>
   )
 }

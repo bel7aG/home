@@ -13,7 +13,7 @@ const Canvas: FC<CanvasProps> = ({ children }) => {
   const router = useRouter()
 
   return (
-    <ThreeFiberCanvas colorManagement camera={{ position: [0, 18, 23] }}>
+    <ThreeFiberCanvas colorManagement gl={{ antialias: true }} camera={{ position: [0, 18, 23] }}>
       <RouterContextProvider router={router as any}>
         <CameraControls />
         <Lights />
